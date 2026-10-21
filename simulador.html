@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#09131b">
+  <meta name="description" content="Calculadora gratuita de libertad financiera: simula tus dividendos netos, aportaciones, reinversión y capital futuro con gráficas interactivas.">
+  <title>Simulador de libertad financiera | El Dragón del Dividendo</title>
+  <link rel="stylesheet" href="simulador.css">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7100199994331123" crossorigin="anonymous"></script>
+  <script src="simulador.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="./" aria-label="El Dragón del Dividendo - inicio"><span class="brand-icon" aria-hidden="true">🐉</span><span>EL DRAGÓN <em>DEL DIVIDENDO</em></span></a>
+    <nav class="site-nav" aria-label="Navegación principal">
+      <a href="./">Inicio</a>
+      <a href="https://dragonkrad.github.io/juego-dividendos/">Juego</a>
+      <a href="https://www.youtube.com/@eldragondeldividendo" target="_blank" rel="noopener noreferrer">YouTube ↗</a>
+    </nav>
+  </header>
+  <main class="container">
+    <div class="breadcrumb"><a href="./">Inicio</a><span aria-hidden="true">/</span> Simulador de dividendos</div>
+    <section class="hero calculator-hero">
+      <span class="eyebrow"><span class="eyebrow-dot"></span> HERRAMIENTA GRATUITA E INTERACTIVA</span>
+      <h1>¿Cuándo podrás vivir <span class="text-gradient">de tus dividendos?</span></h1>
+      <p>Descubre cómo podrían evolucionar tu patrimonio y tus ingresos pasivos. Cambia los valores, compara escenarios y encuentra tu camino hacia la libertad financiera.</p>
+      <div class="hero-chips"><span>↗ Cálculo instantáneo</span><span>◈ Gráfica interactiva</span><span>✓ Sin registro</span></div>
+    </section>
+    <section class="calculator-layout" aria-label="Simulador de independencia financiera">
+      <div class="panel controls-panel">
+        <div class="panel-topline"><span class="step-mark">01</span><div><h2>Personaliza tu plan</h2><p>Desliza para ajustar cada variable.</p></div></div>
+        <form id="simulatorForm" autocomplete="off">
+          <div class="control">
+            <div class="control-label"><label for="capital">Capital inicial</label><output for="capital" id="capitalValue">300.000 €</output></div>
+            <input type="range" id="capital" min="0" max="1500000" step="25000" value="300000">
+            <div class="range-ends"><span>0 €</span><span>1.500.000 €</span></div>
+          </div>
+          <div class="control">
+            <div class="control-label"><label for="contribution">Aportación mensual</label><output for="contribution" id="contributionValue">1.000 €</output></div>
+            <input type="range" id="contribution" min="0" max="5000" step="100" value="1000">
+            <div class="range-ends"><span>0 €</span><span>5.000 €</span></div>
+          </div>
+          <div class="control">
+            <div class="control-label"><label for="yield">Rentabilidad neta por dividendo</label><output for="yield" id="yieldValue">3 %</output></div>
+            <input type="range" id="yield" min="1" max="8" step="0.25" value="3">
+            <div class="range-ends"><span>1 % anual</span><span>8 % anual</span></div>
+          </div>
+          <div class="control">
+            <div class="control-label"><label for="growth">Revalorización anual de las acciones</label><output for="growth" id="growthValue">2 %</output></div>
+            <input type="range" id="growth" min="-5" max="10" step="1" value="2">
+            <div class="range-ends"><span>-5 %</span><span>+10 %</span></div>
+          </div>
+          <div class="control">
+            <div class="control-label"><label for="years">Plazo de inversión</label><output for="years" id="yearsValue">10 años</output></div>
+            <input type="range" id="years" min="1" max="30" step="1" value="10">
+            <div class="range-ends"><span>1 año</span><span>30 años</span></div>
+          </div>
+          <div class="control">
+            <div class="control-label"><label for="goal">Objetivo de dividendos netos</label><output for="goal" id="goalValue">2.000 €/mes</output></div>
+            <input type="range" id="goal" min="500" max="6000" step="100" value="2000">
+            <div class="range-ends"><span>500 €/mes</span><span>6.000 €/mes</span></div>
+          </div>
+          <label class="switch-card" for="reinvest"><span><strong>Reinvertir los dividendos</strong><small>Activa el efecto del interés compuesto.</small></span><span class="switch"><input id="reinvest" type="checkbox" checked><span class="switch-track" aria-hidden="true"></span></span></label>
+          <div class="presets">
+            <span class="preset-title">Ejemplos de escenarios</span>
+            <div class="preset-buttons">
+              <button class="preset" type="button" data-preset="conservative">Prudente</button>
+              <button class="preset active" type="button" data-preset="base">Base</button>
+              <button class="preset" type="button" data-preset="optimistic">Optimista</button>
+            </div>
+          </div>
+          <button type="button" class="reset-button" id="reset">↺ Restablecer valores</button>
+        </form>
+      </div>
+      <div class="results-column" aria-live="polite">
+        <div class="panel results-panel">
+          <div class="panel-topline"><span class="step-mark">02</span><div><h2>Tu futuro, en números</h2><p>Proyección según los parámetros elegidos.</p></div></div>
+          <div class="metrics">
+            <div class="metric primary-metric"><span class="metric-label">DIVIDENDOS NETOS / MES</span><strong id="monthlyIncome">—</strong><span class="metric-foot">Al terminar el periodo</span></div>
+            <div class="metric"><span class="metric-label">PATRIMONIO PROYECTADO</span><strong id="finalCapital">—</strong><span class="metric-foot">Valor estimado de la cartera</span></div>
+          </div>
+          <div class="progress-section">
+            <div class="progress-heading"><span>Objetivo de libertad financiera</span><strong id="progressPercent">—</strong></div>
+            <div class="progress-track" id="progressTrack" role="progressbar" aria-label="Porcentaje del objetivo de dividendos" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div id="progressFill"></div></div>
+            <p class="progress-message" id="progressMessage">Calculando...</p>
+          </div>
+          <div class="substats">
+            <div><span>Dinero aportado</span><strong id="investedTotal">—</strong></div>
+            <div><span>Dividendos cobrados sin reinvertir</span><strong id="cashReceived">—</strong></div>
+          </div>
+        </div>
+        <div class="panel chart-panel">
+          <div class="chart-heading"><div><h2>Evolución de tus dividendos</h2><p>Ingreso mensual neto al final de cada año.</p></div><span class="chart-key"><i aria-hidden="true"></i> Dividendos</span></div>
+          <div class="chart-wrap" id="chartWrap">
+            <svg id="dividendChart" viewBox="0 0 800 320" role="img" aria-label="Gráfica de evolución de los dividendos mensuales netos"></svg>
+            <div class="chart-tooltip" id="chartTooltip" hidden></div>
+          </div>
+          <p class="chart-hint">Pasa el cursor o toca la gráfica para ver los valores por año.</p>
+          <details class="yearly-details"><summary>Ver desglose año a año <span aria-hidden="true">⌄</span></summary><div class="table-scroll"><table><thead><tr><th>Año</th><th>Capital proyectado</th><th>Dividendo neto / mes</th></tr></thead><tbody id="yearlyTable"></tbody></table></div></details>
+        </div>
+      </div>
+    </section>
+    <aside class="educational-note"><span aria-hidden="true">ⓘ</span><div><strong>Un simulador educativo, no una predicción.</strong><p>Se aplican una rentabilidad neta por dividendo constante y una variación mensual proporcional del valor de las acciones. Las aportaciones se realizan al inicio de cada mes y los dividendos se calculan mensualmente; puedes reinvertirlos o cobrarlos. No se modelan inflación, costes adicionales ni cambios en dividendos, fiscalidad o mercado. Los resultados reales pueden ser muy diferentes. No constituye asesoramiento financiero.</p></div></aside>
+    <section class="after-tool"><div><span class="eyebrow">SIGUE APRENDIENDO</span><h2>¿Quieres poner a prueba tu estrategia?</h2><p>Practica comprando acciones ficticias y tomando decisiones en nuestro juego educativo de dividendos.</p></div><a class="button primary-button" href="https://dragonkrad.github.io/juego-dividendos/">Jugar al simulador bursátil <span aria-hidden="true">↗</span></a></section>
+  </main>
+  <footer class="site-footer"><span>© El Dragón del Dividendo · Educación financiera</span><a href="./">Volver al inicio ↑</a></footer>
+</body>
+</html>
